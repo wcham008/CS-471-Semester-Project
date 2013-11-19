@@ -4,6 +4,7 @@
 #include <pthread.h>
 #include <errno.h>
 #include <time.h>
+#include <dos.h>
 
 pthread_mutex_t produce_mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t consume_mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -76,7 +77,7 @@ producer(void *N)
     add_buffer(i);
     printf("Producer created item: %d\n", i+1);
     r = rand() % (intptr_t)N + 1;
-    sleep(r);
+    Sleep(r);
                 fflush(stdout);
     pthread_mutex_unlock(&consume_mutex);
   }
@@ -94,7 +95,7 @@ consumer(void *N)
     v = get_buffer();
     printf("Consumer consumed item: %d\n", v+1);
     r = rand() % (intptr_t)N + 1;
-    sleep(r);
+    Sleep(r);
                 fflush(stdout);
     pthread_mutex_unlock(&produce_mutex);
   }
